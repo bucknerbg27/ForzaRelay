@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ForzaRelay:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ForzaRelay_jar</output-path>
+    <root id="archive" name="ForzaRelay.jar">
+      <element id="module-output" name="ForzaRelay" />
+    </root>
+  </artifact>
+</component>

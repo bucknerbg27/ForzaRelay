@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="borderpaneRoot" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                  <Label text="Local IP: " />
+                  <Label fx:id="labelIpLocal" text="Label" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0">
+               <children>
+                  <Label text="Local port: " />
+                  <Label fx:id="labelPortLocal" text="Label" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0">
+               <children>
+                  <Label text="Remote IP: " />
+                  <Label fx:id="labelIpRemote" text="Label" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="44.0">
+               <children>
+                  <Label text="Remote Port: " />
+                  <Label fx:id="labelPortRemote" text="Label" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_RIGHT">
+               <children>
+                  <Button fx:id="buttonExit" mnemonicParsing="false" text="Exit" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
