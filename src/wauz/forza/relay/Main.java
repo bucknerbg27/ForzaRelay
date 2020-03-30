@@ -20,13 +20,15 @@ public class Main extends Application {
         InputStream streamConfig;
         int listeningPort = 1337;
         int targetPort = 1337;
-        InetAddress targetAddress = InetAddress.getByName("10.0.0.192");
+        InetAddress targetAddress = InetAddress.getByName("192.168.50.105");
+        InetAddress sourceAddress = InetAddress.getByName("192.168.50.221");
 
         String filePath = Paths.get("").toAbsolutePath().toString();
         try {
             streamConfig = new FileInputStream(filePath + "/ForzaConfig.properties");
             configuration.load(streamConfig);
             listeningPort = Integer.parseInt(configuration.getProperty("listeningPort"));
+            sourceAddress = InetAddress.getByName(configuration.getProperty("sourceIP"));
             targetPort = Integer.parseInt(configuration.getProperty("dataOutRelayTargetPort"));
             targetAddress = InetAddress.getByName(configuration.getProperty("dataOutRelayTargetIP"));
             System.out.println("Listening-Port: "+Integer.toString(listeningPort)+" Target: "+targetAddress.toString()+":"+Integer.toString(targetPort));
@@ -37,7 +39,7 @@ public class Main extends Application {
         ForzaDataOutReader reader = new ForzaDataOutReader();
         reader.startRelay(listeningPort, targetAddress, targetPort);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ForzaRelay.fxml"));
-        ForzaRelayController controller = new ForzaRelayController(listeningPort,targetAddress,targetPort);
+        ForzaRelayController controller = new ForzaRelayController(listeningPort,targetAddress,targetPort,sourceAddress);
         fxmlLoader.setController(controller);
         Pane root = fxmlLoader.load();
         primaryStage.setTitle("Forza DataOut Relay");

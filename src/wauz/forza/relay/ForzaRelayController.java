@@ -9,10 +9,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 
@@ -33,23 +37,30 @@ public class ForzaRelayController implements Initializable {
     public StringProperty spLocalAddress = new SimpleStringProperty();
     public IntegerProperty ipLocalPort = new SimpleIntegerProperty();
 
-    public ForzaRelayController(int listeningPort, InetAddress targetIp, int targetPort){
+    public ForzaRelayController(int listeningPort, InetAddress targetIp, int targetPort, InetAddress localAddress){
         spTargetAddress.setValue(targetIp.toString());
         ipTargetPort.setValue(targetPort);
         ipLocalPort.setValue(listeningPort);
+        spLocalAddress.setValue(localAddress.toString());
     }
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Properties configuration = new Properties();
+        InputStream streamConfig;
+        String filePath = Paths.get("").toAbsolutePath().toString();
         labelIpLocal.textProperty().bind(spLocalAddress);
         labelIpRemote.textProperty().bind(spTargetAddress);
         labelPortLocal.textProperty().bind(ipLocalPort.asString());
         labelPortRemote.textProperty().bind(ipTargetPort.asString());
         try {
-            spLocalAddress.setValue(Inet4Address.getLocalHost().getHostAddress());
-        } catch (UnknownHostException e) {
+            streamConfig = new FileInputStream(filePath + "/ForzaConfig.properties");
+            configuration.load(streamConfig);
+
+            spLocalAddress.setValue(InetAddress.getByName(configuration.getProperty("sourceIP")).toString());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
